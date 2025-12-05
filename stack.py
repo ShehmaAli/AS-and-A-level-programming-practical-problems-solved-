@@ -1,18 +1,27 @@
-mylist = []
-
+mylist = [0 for _ in range(10)]
+maxsize = 10
 topptr = -1
 
 
 def push(x):
-    mylist.append(x)
+    global maxsize, topptr, mylist
+    if topptr == maxsize-1:
+        print("Overflow")
+    else:
+        topptr += 1
+        mylist[topptr] = x
 
 
 def pop():
-    mylist.remove(mylist[topptr])
+    global topptr, mylist
+    delitem = -1
+    if topptr == -1:
+        print("Underflow")
+    else:
+        delitem = mylist[topptr]
+        topptr -= 1
+    return delitem
 
-
-def exit():
-    print(mylist)
 
 while True:
     status = input("...............\n"
@@ -24,15 +33,9 @@ while True:
     if status == "1":
         push(input("Enter a value to be pushed"
                    ": "))
-        topptr += 1
     if status == "2":
-        if topptr == -1:
-            print("The value can not be popped as the list is empty")
-        else:
-            print(f"The value {mylist[topptr]} has been popped")
-            pop()
-            topptr -= 1
+        print(f"This {pop()} has been popped")
+        mylist[topptr + 1] = 0
     if status == "3":
-        exit()
+        print(mylist)
         break
-
